@@ -1,6 +1,7 @@
 package io.carlosaltamirano.facturacion.pruebasIntegracion.core.service;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import org.junit.After;
@@ -27,36 +28,53 @@ import io.carlosaltamirano.facturacion.test.categoria.PruebaIntegracion;
 @Category(PruebaIntegracion.class)
 public class EmpresaServiceTest {
 
-	@Autowired
-	EmpresaService empresaService;
-	
-	private Empresa empresa;
-	
-	@Before
-	public void setUp() {
-		empresa = new Empresa("22552255123", "MI EMPRESA S.A.C");
-	}
-	
-	@After
-	public void destroy() {
-		
-		//TODO: completar
-		
-	}
-	
-	@Test
-	public void a_creacionEmpresaConDatosValidos() {
-		
-		//TODO: completar
-		
-	}
-	
-	@Test
-	public void b_creacionEmpresaCuandoRucExiste() {
-		
-		//TODO: completar
-		
-	}
-	
-	
+    @Autowired
+    EmpresaService empresaService;
+
+    private Empresa empresa;
+
+    @Before
+    public void setUp() {
+        empresa = new Empresa("22552255123", "MI EMPRESA S.A.C");
+    }
+
+    @After
+    public void destroy() {
+
+        try {
+            empresaService.eliminar(empresa);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+    }
+
+    @Test
+    public void a_creacionEmpresaConDatosValidos() {
+
+        try {
+            empresa = empresaService.crear(empresa);
+
+            //Puntos de verificación
+
+            //1. Campo id no debe ser nulo
+            Assert.assertNotNull(empresa.getId());
+
+            //2. Campo id debe ser mayor a cero
+            Assert.assertTrue(empresa.getId() > 0);
+
+        } catch (Exception e) {
+            Assert.fail();
+        }
+
+    }
+
+    @Test
+    public void b_creacionEmpresaCuandoRucExiste() {
+
+        //TODO: completar
+
+    }
+
+
 }
